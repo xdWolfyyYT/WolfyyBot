@@ -633,4 +633,4 @@ async def on_command_error(ctx,error):
 		await ctx.send(embed=embed3)
 
 
-client.run(os.environ['NzM5ODc0OTkyMDM2MjQ5NzMx.Xyg0SA.sDN3TEbBfQKDM8MzypS3PFg0d-o'])
+client.run(os.environ['token'])
