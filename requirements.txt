@@ -1,7 +1,1 @@
 discord
-json
-os
-praw
-datetime
-time
-asyncio
