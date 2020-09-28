@@ -7,8 +7,6 @@ import praw
 import datetime
 import time
 import asyncio
-from discord.utils import get
-import youtube_dl
 
 
 rps_choices = [1,2,3]
