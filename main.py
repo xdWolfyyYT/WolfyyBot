@@ -417,13 +417,13 @@ async def kick(ctx,member : discord.Member,*,reason= "No Reason Provided"):
 @client.command(aliases=['b'])
 @commands.has_permissions(ban_members = True)
 async def ban(ctx,member : discord.Member,*,reason= "No Reason Provided"):
-	embed = discord.Embed(title = ":hammer: :lock: "+member.name+" Has Been Banned.", description = "Reason: "+reason, color = discord.Colour.from_rgb(54, 151, 255))
-	embed.add_field(name = "User's ID:", value = member.id, inline = False)
-	embed.set_footer(text = "Command used by "+ctx.author.name+" | Wolfyy Bot!")
+    embed = discord.Embed(title = ":hammer: :lock: "+member.name+" Has Been Banned.", description = "Reason: "+reason, color = discord.Colour.from_rgb(54, 151, 255))
+    embed.add_field(name = "User's ID:", value = member.id, inline = False)
+    embed.set_footer(text = "Command used by "+ctx.author.name+" | Wolfyy Bot!")
     embed2 = discord.Embed(title = f":hammer: :locl: You have been banned from {ctx.author.guild}!", description = f"You have been banned from {ctx.author.guild} for {reason} by {ctx.author.name}!", color = discord.Colour.from_rgb(54, 151, 255))
-	await ctx.send(embed = embed)
+    await ctx.send(embed = embed)
     await member.send(embed = embed2)
-	await member.ban(reason=reason)
+    await member.ban(reason=reason)
 
 @client.command(aliases=['ub'])
 @commands.has_permissions(ban_members = True)
