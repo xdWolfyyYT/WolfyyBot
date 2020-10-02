@@ -29,7 +29,7 @@ async def ch_pr():
     statuses = ["Prefix = w!", f"on {len(client.guilds)} servers ● w!help", "sites.google.com/view/wolfyybot", "Version 0.2 ALPHA", "Wolfyy Bot!"]
     while not client.is_closed():
 
-        status = random.choice
+        status = random.choice(statuses)
         await client.change_presence(activity=discord.Game(name =status))
 
         await asyncio.sleep(7)
