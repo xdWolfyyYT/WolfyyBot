@@ -20,9 +20,20 @@ client = commands.Bot(command_prefix="w!")
 
 @client.event
 async def on_ready():
-	await client.change_presence(status = discord.Status.online, activity=discord.Activity(type=discord.ActivityType.watching, name = 'Prefix: w! | Moderating'))
+	await client.change_presence(activity=discord.Game(name = f"on {len(client.guilds)} servers ● w!help"))
 	print("Wolfyy Bot is Online and Ready!")
 
+async def ch_pr():
+    await client.wait_until_ready()
+
+    statuses = ["Prefix = w!", f"on {len(client.guilds)} servers ● w!help", "sites.google.com/view/wolfyybot", "Version 0.2 ALPHA", "Wolfyy Bot!"]
+    while not client.is_closed():
+
+        status = random.choice
+        await client.change_presence(activity=discord.Game(name =status))
+
+        await asyncio.sleep(7)
+client.loop.create_task(ch_pr())
 
 @client.command()
 async def balance(ctx):
@@ -357,10 +368,10 @@ async def avatar(ctx, member : discord.Member):
 @client.command()
 async def helpModeration(ctx):
 	embed = discord.Embed(title = ":hammer: Moderation Commands:", description = "Here are our commands for Moderation!", color = discord.Colour.from_rgb(54, 151, 255))
-	embed.add_field(name = "Clear Messages Command", value = ":clear <Ammount of messages deleted + 1> [Manage Messages Permissions Needed]", inline=False)
-	embed.add_field(name = "Kick Member Command", value = ":kick <member> [Kick Members Permissions Needed]", inline = False)
-	embed.add_field(name = "Ban / Unban Command", value = ":ban <member> <reason>, :unban <member> [Ban Members Permission Needed]", inline=False)
-	embed.add_field(name = "Mute Command", value = ":mute <member> <reason>, :unmute <member> <reason> [Kick Members Permission Required]", inline = False)
+	embed.add_field(name = "Clear Messages Command", value = "w!clear <Ammount of messages deleted + 1> [Manage Messages Permissions Needed]", inline=False)
+	embed.add_field(name = "Kick Member Command", value = "w!kick <member> [Kick Members Permissions Needed]", inline = False)
+	embed.add_field(name = "Ban / Unban Command", value = "w!ban <member> <reason> [Ban Members Permission Needed]", inline=False)
+	embed.add_field(name = "Mute Command", value = "w!mute <member> <reason>, w!unmute <member> <reason> [Kick Members Permission Required]", inline = False)
 	embed.set_footer(text = "Command used by "+ctx.author.name+" | Wolfyy Bot!")
 	await ctx.send(embed=embed)
 
@@ -409,22 +420,28 @@ async def ban(ctx,member : discord.Member,*,reason= "No Reason Provided"):
 	embed = discord.Embed(title = ":hammer: :lock: "+member.name+" Has Been Banned.", description = "Reason: "+reason, color = discord.Colour.from_rgb(54, 151, 255))
 	embed.add_field(name = "User's ID:", value = member.id, inline = False)
 	embed.set_footer(text = "Command used by "+ctx.author.name+" | Wolfyy Bot!")
+    embed2 = discord.Embed(title = f":hammer: :locl: You have been banned from {ctx.author.guild}!", description = f"You have been banned from {ctx.author.guild} for {reason} by {ctx.author.name}!", color = discord.Colour.from_rgb(54, 151, 255))
 	await ctx.send(embed = embed)
+    await member.send(embed = embed2)
 	await member.ban(reason=reason)
 
-@client.command()
+@client.command(aliases=['ub'])
 @commands.has_permissions(ban_members = True)
-async def unban(ctx, *, member):
-      banned_users = await ctx.guild.bans()
-      member_name, member_discriminator = member.split('#')
+async def unban(ctx,*,member):
+    banned_users = await ctx.guild.bans()
+    member_name, member_disc = member.split('#')
 
-      for ban_entry in banned_users:
-          user = ban_entry.user
+    for banned_entry in banned_users:
+        user = banned_entry.user
+        
+        if(user.name, user.discriminator) == (member_name, member_disc):
 
-          if (user.name, user.discriminator) == (member_name, member_discriminator):
-              await ctx.guild.unban(user)
-      embed = discord.Embed(title = "Unban Successfull!", description = f"{user} has been unbanned by {ctx.author.name}.", color = discord.Colour.from_rgb(255,0,0))
-      await ctx.send(embed=embed)
+            await ctx.guild.unban(user)
+            embed = discord.Embed(title = "Member has been unbanned!", description = "Unban successful.", color = discord.Colour.from_rgb(54, 151, 255))
+            await ctx.send(embed = embed)
+            return
+
+    await ctx.send(member+" was not found, try running the command again.")
 
 @client.command()
 @commands.has_permissions(kick_members=True)
