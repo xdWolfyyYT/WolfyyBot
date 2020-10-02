@@ -26,7 +26,7 @@ async def on_ready():
 async def ch_pr():
     await client.wait_until_ready()
 
-    statuses = ["Prefix = w!", f"on {len(client.guilds)} servers ● w!help", "sites.google.com/view/wolfyybot", "Version 0.2 ALPHA", "Wolfyy Bot!"]
+    statuses = ["Prefix = w!", f"On {len(client.guilds)} Servers ● w!help", "sites.google.com/view/wolfyybot", "Version 0.2 ALPHA", "Wolfyy Bot!"]
     while not client.is_closed():
 
         status = random.choice(statuses)
