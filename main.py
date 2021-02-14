@@ -11,7 +11,7 @@ import asyncio
 
 rps_choices = [1,2,3]
 
-TOKEN = 'NzM5ODc0OTkyMDM2MjQ5NzMx.Xyg0SA.sDN3TEbBfQKDM8MzypS3PFg0d-o'
+TOKEN = 'token'
 BOT_PREFIX = 'w!'
 
 bot = commands.Bot(command_prefix=BOT_PREFIX)
